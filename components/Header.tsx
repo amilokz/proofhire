@@ -49,14 +49,24 @@ function MoonIcon() {
 export default function Header() {
   const { t, lang, setLang, theme, toggleTheme } = useApp();
   const pathname = usePathname();
+  const isHome = pathname === '/';
 
-  const links = [
-    { href: '/build', label: t('nav.build') },
-    { href: '/search', label: t('nav.search') },
-    { href: '/test', label: t('nav.test') },
-    { href: '/institute', label: t('nav.institute') },
-    { href: '/pricing', label: t('nav.pricing') },
-  ];
+  // On the landing page, navbar scrolls to sections; on all other routes
+  // it keeps the original route navigation (unchanged).
+  const links = isHome
+    ? [
+        { href: '/#features', label: t('nav.features') },
+        { href: '/#how', label: t('nav.how') },
+        { href: '/#live-demo', label: t('nav.searchtalent') },
+        { href: '/#faq', label: t('nav.faq') },
+      ]
+    : [
+        { href: '/build', label: t('nav.build') },
+        { href: '/search', label: t('nav.search') },
+        { href: '/test', label: t('nav.test') },
+        { href: '/institute', label: t('nav.institute') },
+        { href: '/pricing', label: t('nav.pricing') },
+      ];
 
   const navCls = (active: boolean) =>
     `rounded-xl px-3.5 py-2 text-sm font-semibold transition-all duration-200 ${
@@ -96,8 +106,11 @@ export default function Header() {
             >
               {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
             </button>
-            <Link href="/admin" className="btn-primary btn-sm hidden sm:inline-flex">
-              {t('nav.login')}
+            <Link
+              href={isHome ? '/search' : '/admin'}
+              className="btn-primary btn-sm hidden sm:inline-flex"
+            >
+              {isHome ? t('nav.trydemo') : t('nav.login')}
             </Link>
           </div>
         </div>
