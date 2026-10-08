@@ -42,9 +42,8 @@ export default function BuildPage() {
   const set = (k: keyof BuilderFields, v: string) =>
     setFields((f) => ({ ...f, [k]: v }));
 
-  const inputCls =
-    'w-full rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/30 dark:border-white/15 dark:bg-white/5 dark:text-zinc-100';
-  const labelCls = 'mb-1.5 block text-sm font-semibold text-zinc-700 dark:text-zinc-200';
+  const inputCls = 'field';
+  const labelCls = 'field-label';
 
   const save = () => {
     const prev = loadMyProfile();
@@ -60,21 +59,21 @@ export default function BuildPage() {
       <PageHead title={t('build.title')} sub={t('build.sub')} />
 
       {saved && (
-        <div className="mb-6 rounded-2xl border border-green-500/30 bg-green-500/10 px-5 py-4 text-sm font-medium text-green-700 dark:text-green-300">
+        <div className="mb-6 rounded-2xl border border-green-500/30 bg-green-500/10 px-5 py-4 text-sm font-medium text-green-700 shadow-sm dark:text-green-300">
           ✅ {t('build.saved')}
           <div className="mt-3 flex flex-wrap gap-2">
-            <Link href="/github" className="rounded-lg bg-accent-600 px-4 py-2 text-xs font-bold text-white hover:bg-accent-700">{t('build.next.github')}</Link>
-            <Link href="/projects" className="rounded-lg bg-accent-600 px-4 py-2 text-xs font-bold text-white hover:bg-accent-700">{t('build.next.projects')}</Link>
-            <Link href="/test" className="rounded-lg bg-accent-600 px-4 py-2 text-xs font-bold text-white hover:bg-accent-700">{t('build.next.test')}</Link>
+            <Link href="/github" className="btn-primary btn-sm">{t('build.next.github')}</Link>
+            <Link href="/projects" className="btn-primary btn-sm">{t('build.next.projects')}</Link>
+            <Link href="/test" className="btn-primary btn-sm">{t('build.next.test')}</Link>
           </div>
         </div>
       )}
 
-      <Card>
-        <div className="mb-6">
+      <Card className="hero-mesh">
+        <div className="relative mb-6">
           <div className="mb-2 flex items-center justify-between text-sm">
             <span className="font-semibold">{t('build.completion')}</span>
-            <span className="font-bold text-accent-600 dark:text-accent-300">{completion}%</span>
+            <span className="gradient-text text-lg font-extrabold">{completion}%</span>
           </div>
           <ProgressBar value={completion} />
         </div>
@@ -129,10 +128,10 @@ export default function BuildPage() {
                   role="radio"
                   aria-checked={fields.availability === v}
                   onClick={() => setFields((f) => ({ ...f, availability: v }))}
-                  className={`rounded-xl border px-4 py-2 text-sm font-semibold transition ${
+                  className={`rounded-xl border px-4 py-2 text-sm font-semibold transition-all duration-200 ${
                     fields.availability === v
-                      ? 'border-accent-500 bg-accent-500/15 text-accent-700 dark:text-accent-300'
-                      : 'border-zinc-300 text-zinc-500 dark:border-white/15 dark:text-zinc-400'
+                      ? 'border-accent-500 bg-accent-500/15 text-accent-700 shadow-glow dark:text-accent-200'
+                      : 'border-zinc-300 text-zinc-500 hover:border-accent-300 dark:border-white/15 dark:text-zinc-400'
                   }`}
                 >
                   {label}
@@ -156,7 +155,7 @@ export default function BuildPage() {
 
         <button
           onClick={save}
-          className="mt-6 w-full rounded-2xl bg-accent-600 px-6 py-3.5 font-bold text-white shadow-card transition hover:bg-accent-700 sm:w-auto sm:px-10"
+          className="btn-primary mt-6 w-full px-10 py-3.5 text-base sm:w-auto"
         >
           💾 {t('build.save')}
         </button>

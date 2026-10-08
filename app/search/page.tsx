@@ -176,35 +176,34 @@ export default function SearchPage() {
     return c;
   }, [parsed]);
 
-  const inputCls =
-    'w-full rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/30 dark:border-white/15 dark:bg-white/5 dark:text-zinc-100';
+  const inputCls = 'field';
 
   return (
     <div>
       <PageHead title={t('search.title')} sub={t('search.sub')} />
 
       {/* search bar + voice */}
-      <Card className="mb-4">
-        <div className="flex gap-2">
+      <Card className="hero-mesh mb-4">
+        <div className="relative flex gap-2">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && runSearch(query, filters)}
             placeholder={t('search.placeholder')}
             aria-label={t('search.title')}
-            className="flex-1 rounded-2xl border-2 border-accent-500/30 bg-white px-5 py-3.5 text-sm outline-none focus:border-accent-500 dark:border-white/15 dark:bg-white/5 sm:text-base"
+            className="field flex-1 rounded-2xl border-2 border-accent-500/30 px-5 py-3.5 text-sm shadow-sm focus:border-accent-500 sm:text-base"
           />
           <button
             onClick={startListening}
             title="Voice search (Web Speech API)"
             aria-label="Voice search"
-            className={`shrink-0 rounded-2xl px-4 text-xl transition ${listening ? 'animate-pulse-ring bg-red-500 text-white' : 'border-2 border-accent-500/30 hover:border-accent-500'}`}
+            className={`shrink-0 rounded-2xl px-4 text-xl transition-all duration-200 hover:-translate-y-0.5 ${listening ? 'animate-pulse-ring bg-red-500 text-white' : 'border-2 border-accent-500/30 bg-white/50 hover:border-accent-500 hover:shadow-glow dark:bg-white/5'}`}
           >
             🎤
           </button>
           <button
             onClick={() => runSearch(query, filters)}
-            className="shrink-0 rounded-2xl bg-accent-600 px-6 py-3.5 text-sm font-bold text-white shadow-card transition hover:bg-accent-700"
+            className="btn-primary shrink-0 px-6 py-3.5"
           >
             {t('search.button')}
           </button>
@@ -214,15 +213,15 @@ export default function SearchPage() {
 
         {/* AI-parsed panel */}
         {parsed && (chips.length > 0 || query) && (
-          <div className="mt-4 rounded-xl bg-accent-500/5 p-4 dark:bg-accent-500/10">
-            <div className="mb-2 flex items-center gap-2">
+          <div className="relative mt-4 rounded-2xl border border-accent-500/20 bg-accent-500/5 p-4 dark:bg-accent-500/10">
+            <div className="mb-2.5 flex items-center gap-2">
               <span className="text-sm font-bold">🤖 {t('search.parsed')}:</span>
               <SimulatedLabel />
             </div>
             <div className="flex flex-wrap gap-2">
               {chips.length === 0 && <span className="text-xs text-zinc-500">—</span>}
               {chips.map((c) => (
-                <span key={c} className="rounded-full bg-accent-600 px-3 py-1 text-xs font-bold text-white">
+                <span key={c} className="rounded-full bg-gradient-to-r from-accent-600 to-violet-600 px-3 py-1 text-xs font-bold text-white shadow-glow">
                   {c}
                 </span>
               ))}
@@ -230,50 +229,50 @@ export default function SearchPage() {
           </div>
         )}
 
-        <div className="mt-3 flex items-center justify-between">
+        <div className="relative mt-4 flex items-center justify-between">
           <button
             onClick={() => setShowFilters((v) => !v)}
-            className="text-sm font-bold text-accent-600 hover:underline dark:text-accent-300"
+            className="text-sm font-bold text-accent-600 transition hover:text-accent-500 dark:text-accent-300"
           >
             {showFilters ? '▴' : '▾'} {t('search.filters')}
           </button>
           <div className="flex items-center gap-2 text-sm">
-            <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+            <span className="chip !bg-amber-500/15 !text-amber-700 dark:!text-amber-300">
               💰 {credits} {t('search.credits')}
             </span>
-            <button onClick={speakSummary} title="Read top matches aloud" className="rounded-lg border border-zinc-300 px-2.5 py-1 text-sm dark:border-white/15">
+            <button onClick={speakSummary} title="Read top matches aloud" className="btn-ghost btn-sm !px-2.5">
               🔊
             </button>
           </div>
         </div>
 
         {showFilters && (
-          <div className="mt-3 grid gap-3 border-t border-zinc-200 pt-4 dark:border-white/10 sm:grid-cols-3">
+          <div className="relative mt-4 grid gap-4 border-t border-zinc-200/80 pt-5 dark:border-white/10 sm:grid-cols-3">
             <div>
-              <label className="mb-1 block text-xs font-bold">{t('search.f.stack')}</label>
-              <select className={inputCls} value={filters.stack} onChange={(e) => { setF('stack', e.target.value); }}>
+              <label className="field-label" htmlFor="f-stack">{t('search.f.stack')}</label>
+              <select id="f-stack" className={inputCls} value={filters.stack} onChange={(e) => { setF('stack', e.target.value); }}>
                 <option value="">{t('search.any')}</option>
                 {STACKS.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold">{t('search.f.city')}</label>
-              <select className={inputCls} value={filters.city} onChange={(e) => setF('city', e.target.value)}>
+              <label className="field-label" htmlFor="f-city">{t('search.f.city')}</label>
+              <select id="f-city" className={inputCls} value={filters.city} onChange={(e) => setF('city', e.target.value)}>
                 <option value="">{t('search.any')}</option>
                 {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold">{t('search.f.years')}</label>
-              <input type="number" min="0" max="20" className={inputCls} value={filters.minYears} onChange={(e) => setF('minYears', e.target.value)} placeholder="2" />
+              <label className="field-label" htmlFor="f-years">{t('search.f.years')}</label>
+              <input id="f-years" type="number" min="0" max="20" className={inputCls} value={filters.minYears} onChange={(e) => setF('minYears', e.target.value)} placeholder="2" />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold">{t('search.f.budget')}</label>
-              <input type="number" min="0" step="10000" className={inputCls} value={filters.maxBudget} onChange={(e) => setF('maxBudget', e.target.value)} placeholder="150000" />
+              <label className="field-label" htmlFor="f-budget">{t('search.f.budget')}</label>
+              <input id="f-budget" type="number" min="0" step="10000" className={inputCls} value={filters.maxBudget} onChange={(e) => setF('maxBudget', e.target.value)} placeholder="150000" />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold">{t('search.f.avail')}</label>
-              <select className={inputCls} value={filters.avail} onChange={(e) => setF('avail', e.target.value)}>
+              <label className="field-label" htmlFor="f-avail">{t('search.f.avail')}</label>
+              <select id="f-avail" className={inputCls} value={filters.avail} onChange={(e) => setF('avail', e.target.value)}>
                 <option value="">{t('search.any')}</option>
                 <option value="available-now">{t('build.avail.now')}</option>
                 <option value="in-1-month">{t('build.avail.month')}</option>
@@ -281,18 +280,18 @@ export default function SearchPage() {
               </select>
             </div>
             <div className="flex items-end gap-2">
-              <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-zinc-300 px-4 py-2.5 text-sm dark:border-white/15">
-                <input type="checkbox" checked={filters.verifiedOnly} onChange={(e) => setF('verifiedOnly', e.target.checked)} className="accent-violet-600" />
+              <label className="btn-ghost w-full cursor-pointer !justify-start">
+                <input type="checkbox" checked={filters.verifiedOnly} onChange={(e) => setF('verifiedOnly', e.target.checked)} className="h-4 w-4 accent-violet-600" />
                 {t('search.f.verified')}
               </label>
             </div>
             <div className="flex items-end gap-2 sm:col-span-3">
-              <button onClick={() => applyFilters(filters)} className="rounded-xl bg-accent-600 px-6 py-2.5 text-sm font-bold text-white hover:bg-accent-700">
+              <button onClick={() => applyFilters(filters)} className="btn-primary btn-sm !px-6 !py-2.5 !text-sm">
                 {t('search.filters')} ✓
               </button>
               <button
                 onClick={() => { setFilters(EMPTY_F); runSearch(query, EMPTY_F); }}
-                className="rounded-xl border border-zinc-300 px-5 py-2.5 text-sm font-bold dark:border-white/15"
+                className="btn-ghost btn-sm !px-5 !py-2.5 !text-sm"
               >
                 {t('search.f.clear')}
               </button>
@@ -302,9 +301,9 @@ export default function SearchPage() {
       </Card>
 
       {noCredits && (
-        <div className="mb-4 rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-sm font-medium text-red-700 dark:text-red-300">
+        <div className="mb-4 rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-3.5 text-sm font-medium text-red-700 shadow-sm dark:text-red-300">
           ⚠️ {t('search.nocredits')}
-          <button onClick={() => setNoCredits(false)} className="ml-3 underline">{t('common.close')}</button>
+          <button onClick={() => setNoCredits(false)} className="ml-3 font-bold underline">{t('common.close')}</button>
         </div>
       )}
 
@@ -314,7 +313,7 @@ export default function SearchPage() {
           {compareSel.length > 0 && (
             <button
               onClick={() => router.push('/shortlist')}
-              className="ml-3 rounded-lg bg-accent-600 px-3 py-1.5 text-xs font-bold text-white"
+              className="btn-primary btn-sm ml-3"
             >
               {t('search.compare')} ({compareSel.length}/3) →
             </button>

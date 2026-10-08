@@ -49,44 +49,40 @@ export default function PricingPage() {
       <div className="mb-4"><SimulatedLabel /></div>
 
       {chosen && (
-        <div className="mb-6 rounded-2xl border border-green-500/30 bg-green-500/10 px-5 py-4 text-sm font-medium text-green-700 dark:text-green-300">
+        <div className="mb-7 rounded-2xl border border-green-500/30 bg-green-500/10 px-5 py-4 text-sm font-medium text-green-700 shadow-sm dark:text-green-300">
           ✅ {t('pricing.chosen')}
         </div>
       )}
 
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-3">
         {plans.map((p) => (
           <div
             key={p.id}
-            className={`relative rounded-3xl border p-7 ${
+            className={`card-premium relative p-8 transition-all duration-300 hover:-translate-y-1.5 ${
               p.popular
-                ? 'border-accent-500 bg-gradient-to-b from-accent-500/15 to-transparent shadow-pop'
-                : 'border-zinc-200 bg-white dark:border-white/10 dark:bg-white/5'
+                ? '!border-accent-500/50 hero-mesh shadow-glow-lg'
+                : 'hover:shadow-card-lg'
             }`}
           >
             {p.popular && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent-600 px-4 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+              <span className="sheen absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-accent-600 to-violet-600 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white shadow-glow">
                 {ur ? 'Maqbool' : 'Popular'}
               </span>
             )}
-            <h2 className="text-xl font-extrabold">{p.name}</h2>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{p.desc}</p>
-            <p className="mt-4 text-3xl font-extrabold text-accent-600 dark:text-accent-300">{p.price}</p>
-            <ul className="mt-5 space-y-2.5">
+            <h2 className="text-xl font-extrabold tracking-tight">{p.name}</h2>
+            <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">{p.desc}</p>
+            <p className="gradient-text mt-5 text-4xl font-extrabold tracking-tight">{p.price}</p>
+            <ul className="mt-6 space-y-3">
               {p.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm">
-                  <span className="text-green-500">✓</span>
+                <li key={f} className="flex items-start gap-2.5 text-sm">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-[11px] font-bold text-green-600 dark:text-green-300">✓</span>
                   <span className="text-zinc-600 dark:text-zinc-300">{f}</span>
                 </li>
               ))}
             </ul>
             <button
               onClick={() => setChosen(p.id)}
-              className={`mt-7 w-full rounded-2xl px-6 py-3 font-bold transition ${
-                p.popular
-                  ? 'bg-accent-600 text-white shadow-card hover:bg-accent-700'
-                  : 'border-2 border-accent-500/40 text-accent-700 hover:bg-accent-500/10 dark:text-accent-300'
-              }`}
+              className={`mt-8 w-full ${p.popular ? 'btn-primary' : 'btn-secondary'}`}
             >
               {t('pricing.cta')}
             </button>

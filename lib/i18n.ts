@@ -11,7 +11,6 @@ const en: Record<string, string> = {
   'nav.logout': 'Logout',
   'theme.toggle': 'Toggle light / dark mode',
   'lang.toggle': 'EN / UR',
-  'more.demos': '← More demos by AKCLNT',
 
   'landing.kicker': 'Verified talent profiles — no CVs',
   'landing.headline': 'Stop sending CVs. Start showing proof.',
@@ -228,7 +227,6 @@ const ur: Record<string, string> = {
   'nav.logout': 'Logout',
   'theme.toggle': 'Light / dark mode badlein',
   'lang.toggle': 'EN / UR',
-  'more.demos': '← AKCLNT ke mazeed demos',
 
   'landing.kicker': 'Verified talent profiles — CVs nahi',
   'landing.headline': 'CVs bhejna band karo. Proof dikhao.',

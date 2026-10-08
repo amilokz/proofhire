@@ -42,16 +42,16 @@ export default function AdminPage() {
     return (
       <div>
         <PageHead title={t('admin.title')} sub={t('admin.sub')} />
-        <Card className="mx-auto max-w-md text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent-500/15 text-3xl">
+        <Card className="hero-mesh mx-auto max-w-md text-center">
+          <div className="relative mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-500 to-violet-600 text-3xl text-white shadow-glow">
             🔐
           </div>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="relative text-sm text-zinc-500 dark:text-zinc-400">
             Demo admin area — no real authentication in this demo.
           </p>
           <button
             onClick={login}
-            className="mt-5 w-full rounded-2xl bg-accent-600 px-6 py-3.5 font-bold text-white shadow-card transition hover:bg-accent-700"
+            className="btn-primary relative mt-6 w-full py-3.5"
           >
             {t('nav.login')}
           </button>
@@ -63,8 +63,9 @@ export default function AdminPage() {
   return (
     <div>
       <PageHead title={t('admin.title')} sub={t('admin.sub')} />
-      <p className="mb-6 inline-block rounded-full bg-green-500/15 px-4 py-1.5 text-sm font-semibold text-green-700 dark:text-green-300">
-        ✓ {t('admin.logged')}
+      <p className="mb-7 inline-flex items-center gap-2 rounded-full bg-green-500/15 px-4 py-1.5 text-sm font-semibold text-green-700 ring-1 ring-green-500/30 dark:text-green-300">
+        <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" aria-hidden="true" />
+        {t('admin.logged')}
       </p>
 
       <div className="grid grid-cols-3 gap-4">
@@ -74,18 +75,18 @@ export default function AdminPage() {
           { v: String(credits), l: t('admin.stat.credits') },
         ].map((s) => (
           <Card key={s.l} className="text-center">
-            <p className="text-3xl font-extrabold text-accent-600 dark:text-accent-300">{s.v}</p>
-            <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{s.l}</p>
+            <p className="gradient-text text-3xl font-extrabold tracking-tight">{s.v}</p>
+            <p className="mt-1.5 text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">{s.l}</p>
           </Card>
         ))}
       </div>
 
-      <Card className="mt-6 border-red-500/30">
-        <h2 className="font-bold text-red-600 dark:text-red-400">⚠️ {t('admin.danger')}</h2>
+      <Card className="mt-7 !border-red-500/30">
+        <h2 className="font-bold tracking-tight text-red-600 dark:text-red-400">⚠️ {t('admin.danger')}</h2>
         <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">{t('admin.reset.warn')}</p>
         <button
           onClick={reset}
-          className="mt-4 rounded-2xl bg-red-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-red-700"
+          className="btn-sm mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-red-500 to-red-700 px-6 py-3 text-sm font-bold text-white shadow-[0_8px_28px_-8px_rgba(239,68,68,0.6)] transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110 active:translate-y-0"
         >
           🗑️ {t('common.reset')}
         </button>
@@ -96,7 +97,7 @@ export default function AdminPage() {
         )}
       </Card>
 
-      <button onClick={logout} className="mt-6 text-sm font-bold text-zinc-500 hover:underline">
+      <button onClick={logout} className="btn-ghost mt-7">
         {t('nav.logout')}
       </button>
     </div>

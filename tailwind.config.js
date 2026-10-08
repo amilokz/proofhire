@@ -36,7 +36,10 @@ module.exports = {
       },
       boxShadow: {
         card: '0 10px 30px -12px rgba(124, 58, 237, 0.25)',
+        'card-lg': '0 24px 60px -20px rgba(124, 58, 237, 0.35)',
         pop: '0 18px 50px -16px rgba(124, 58, 237, 0.35)',
+        glow: '0 8px 28px -8px rgba(139, 92, 246, 0.5)',
+        'glow-lg': '0 14px 44px -10px rgba(139, 92, 246, 0.6)',
       },
     },
   },

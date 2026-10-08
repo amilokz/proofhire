@@ -34,31 +34,31 @@ export default function BatchPage() {
       <PageHead title={t('batch.title')} sub={t('batch.sub')} />
       <div className="mb-4"><SimulatedLabel /></div>
 
-      <Card className="mb-4 border-accent-500/30">
-        <div className="flex flex-wrap items-start justify-between gap-3">
+      <Card className="hero-mesh mb-5 !border-accent-500/30">
+        <div className="relative flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-accent-600 dark:text-accent-300">🏫 {batch.institute}</p>
-            <h2 className="mt-1 text-2xl font-extrabold">{batch.name}</h2>
-            <p className="mt-1 text-xs text-zinc-500">Started {batch.started} · {batch.students.length} {t('inst.students')}</p>
+            <p className="text-sm font-bold text-accent-700 dark:text-accent-200">🏫 {batch.institute}</p>
+            <h2 className="mt-1.5 text-2xl font-extrabold tracking-tight">{batch.name}</h2>
+            <p className="mt-1.5 text-xs text-zinc-500">Started {batch.started} · {batch.students.length} {t('inst.students')}</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-extrabold text-accent-600 dark:text-accent-300">{verified.length}</p>
-            <p className="text-xs text-zinc-500">{t('inst.verified.count')}</p>
+            <p className="gradient-text text-4xl font-extrabold">{verified.length}</p>
+            <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-zinc-500">{t('inst.verified.count')}</p>
           </div>
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-2 rounded-xl bg-zinc-50 p-3 dark:bg-white/5">
+        <div className="relative mt-5 flex flex-wrap items-center gap-2 rounded-2xl border border-zinc-200/60 bg-zinc-50/70 p-3.5 dark:border-white/10 dark:bg-white/[0.04]">
           <span className="text-xs font-bold text-zinc-500">{t('batch.link')}:</span>
-          <code className="break-all text-xs text-accent-700 dark:text-accent-300">{mockLink}</code>
-          <button onClick={copy} className="ml-auto rounded-lg bg-accent-600 px-3 py-1.5 text-xs font-bold text-white">
+          <code className="break-all text-xs font-semibold text-accent-700 dark:text-accent-200">{mockLink}</code>
+          <button onClick={copy} className="btn-primary btn-sm ml-auto">
             {copied ? `✓ ${t('common.copied')}` : `📋 ${t('common.copy')}`}
           </button>
         </div>
       </Card>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         {batch.students.map((s) => (
-          <Card key={s.name} className="flex items-center gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-500/15 text-lg font-extrabold text-accent-700 dark:text-accent-300">
+          <Card lift key={s.name} className="flex items-center gap-4 !p-5">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-500 to-violet-600 text-lg font-extrabold text-white shadow-glow">
               {s.name.charAt(0)}
             </span>
             <div className="min-w-0 flex-1">
@@ -66,8 +66,8 @@ export default function BatchPage() {
                 <p className="font-bold">{s.name}</p>
                 {studentVerified(s) && <VerifiedBadge size="sm" />}
               </div>
-              <p className="text-xs text-zinc-500">{s.stack} · {t('inst.table.score')}: {s.testScore != null ? `${s.testScore}/100` : '—'}</p>
-              <div className="mt-1.5 flex items-center gap-2">
+              <p className="mt-0.5 text-xs text-zinc-500">{s.stack} · {t('inst.table.score')}: {s.testScore != null ? `${s.testScore}/100` : '—'}</p>
+              <div className="mt-2 flex items-center gap-2">
                 <ProgressBar value={s.completion} className="flex-1" />
                 <span className="text-[11px] font-bold">{s.completion}%</span>
               </div>

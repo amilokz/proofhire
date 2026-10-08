@@ -66,7 +66,7 @@ export default function ProjectsPage() {
       <div>
         <PageHead title={t('projects.title')} sub={t('projects.sub')} />
         <Card className="text-center">
-          <Link href="/build" className="inline-block rounded-xl bg-accent-600 px-6 py-2.5 font-bold text-white">
+          <Link href="/build" className="btn-primary inline-flex">
             {t('landing.cta.build')}
           </Link>
         </Card>
@@ -74,8 +74,7 @@ export default function ProjectsPage() {
     );
   }
 
-  const inputCls =
-    'w-full rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/30 dark:border-white/15 dark:bg-white/5 dark:text-zinc-100';
+  const inputCls = 'field';
 
   return (
     <div>
@@ -85,8 +84,8 @@ export default function ProjectsPage() {
       </div>
 
       {mine && (
-        <Card className="mb-6">
-          <div className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
+        <Card className="hero-mesh mb-6">
+          <div className="relative grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
             <input
               className={inputCls}
               value={name}
@@ -105,12 +104,12 @@ export default function ProjectsPage() {
             <button
               onClick={add}
               disabled={!name.trim() || !url.trim()}
-              className="rounded-xl bg-accent-600 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-accent-700 disabled:opacity-40"
+              className="btn-primary"
             >
               + {t('projects.add')}
             </button>
           </div>
-          <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+          <p className="relative mt-3 text-xs text-zinc-500 dark:text-zinc-400">
             {t('common.ai.simulated')}: status check runs on seed math, no network.
           </p>
         </Card>
@@ -122,13 +121,13 @@ export default function ProjectsPage() {
         <ul className="grid gap-3 sm:grid-cols-2">
           {dev.projects.map((p, i) => (
             <li key={i}>
-              <Card className="flex items-center gap-3">
-                <span className={`relative flex h-3 w-3 shrink-0 ${p.live ? '' : ''}`}>
+              <Card lift className="flex items-center gap-3 !p-4">
+                <span className={`relative flex h-3 w-3 shrink-0`}>
                   {p.live && (
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
                   )}
                   <span
-                    className={`relative inline-flex h-3 w-3 rounded-full ${p.live ? 'bg-green-500' : 'bg-red-500'}`}
+                    className={`relative inline-flex h-3 w-3 rounded-full shadow ${p.live ? 'bg-green-500 shadow-green-500/50' : 'bg-red-500 shadow-red-500/50'}`}
                   />
                 </span>
                 <div className="min-w-0 flex-1">
@@ -136,27 +135,27 @@ export default function ProjectsPage() {
                   <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">{p.url}</p>
                 </div>
                 <span
-                  className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold ${
+                  className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold ring-1 ${
                     p.live
-                      ? 'bg-green-500/15 text-green-700 dark:text-green-300'
-                      : 'bg-red-500/15 text-red-700 dark:text-red-300'
+                      ? 'bg-green-500/15 text-green-700 ring-green-500/30 dark:text-green-300'
+                      : 'bg-red-500/15 text-red-700 ring-red-500/30 dark:text-red-300'
                   }`}
                 >
                   {p.live ? `● ${t('projects.live')}` : `● ${t('projects.down')}`}
                 </span>
                 {mine && (
-                  <div className="flex shrink-0 gap-1">
+                  <div className="flex shrink-0 gap-1.5">
                     <button
                       onClick={() => recheck(i)}
                       title="Re-check (simulated)"
-                      className="rounded-lg border border-zinc-300 px-2 py-1 text-xs dark:border-white/15"
+                      className="btn-ghost btn-sm !px-2.5"
                     >
                       ↻
                     </button>
                     <button
                       onClick={() => remove(i)}
                       title={t('shortlist.remove')}
-                      className="rounded-lg border border-zinc-300 px-2 py-1 text-xs text-red-600 dark:border-white/15"
+                      className="btn-ghost btn-sm !px-2.5 !text-red-600 hover:!border-red-400 dark:!text-red-400"
                     >
                       ✕
                     </button>
@@ -168,8 +167,8 @@ export default function ProjectsPage() {
         </ul>
       )}
 
-      <div className="mt-6">
-        <Link href="/test" className="rounded-xl bg-accent-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-accent-700">
+      <div className="mt-7">
+        <Link href="/test" className="btn-primary btn-sm !px-5 !py-2.5 !text-sm">
           {t('build.next.test')}
         </Link>
       </div>

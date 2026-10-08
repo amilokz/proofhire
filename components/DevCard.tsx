@@ -28,7 +28,7 @@ export default function DevCard({
   const ur = lang === 'ur';
 
   return (
-    <article className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-card dark:border-white/10 dark:bg-white/5">
+    <article className="card-premium card-lift p-5">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
@@ -78,32 +78,32 @@ export default function DevCard({
       <div className="mt-3 flex flex-wrap gap-2">
         <button
           onClick={onToggleShortlist}
-          className={`rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+          className={`btn-sm transition ${
             shortlisted
-              ? 'bg-accent-600 text-white'
-              : 'border border-accent-500/40 text-accent-700 dark:text-accent-300'
+              ? 'btn-primary'
+              : 'btn-secondary'
           }`}
         >
           {shortlisted ? t('search.shortlisted') : `☆ ${t('search.shortlist')}`}
         </button>
-        <label className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-zinc-300 px-3 py-1.5 text-xs font-bold dark:border-white/15">
-          <input type="checkbox" checked={compareChecked} onChange={onToggleCompare} className="accent-violet-600" />
+        <label className="btn-ghost btn-sm cursor-pointer">
+          <input type="checkbox" checked={compareChecked} onChange={onToggleCompare} className="h-3.5 w-3.5 accent-violet-600" />
           {t('search.compare')}
         </label>
-        <button onClick={onView} className="rounded-lg border border-zinc-300 px-3 py-1.5 text-xs font-bold dark:border-white/15">
+        <button onClick={onView} className="btn-ghost btn-sm">
           {t('common.view')} →
         </button>
         {!unlocked ? (
           <button
             onClick={onUnlock}
             disabled={credits <= 0}
-            className="rounded-lg bg-green-600 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-green-700 disabled:opacity-40"
+            className="btn-sm inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-[0_8px_24px_-8px_rgba(16,185,129,0.6)] transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
             title={`${credits} ${t('search.credits')}`}
           >
             🔓 {t('search.unlock')} (1💰)
           </button>
         ) : (
-          <span className="rounded-lg bg-green-500/15 px-3 py-1.5 text-xs font-bold text-green-700 dark:text-green-300">
+          <span className="btn-sm inline-flex items-center gap-1.5 rounded-xl bg-green-500/15 px-4 py-2 text-xs font-bold text-green-700 ring-1 ring-green-500/30 dark:text-green-300">
             ✓ {t('search.unlocked')}
           </span>
         )}

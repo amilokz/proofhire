@@ -25,15 +25,15 @@ export default function InstitutePage() {
     <div>
       <PageHead title={t('inst.title')} sub={t('inst.sub')} />
 
-      <div className="mb-6 flex flex-wrap items-center gap-3">
-        <label className="text-sm font-bold">{t('inst.batch')}:</label>
-        <div className="flex gap-2">
+      <div className="mb-7 flex flex-wrap items-center gap-3">
+        <label className="field-label !mb-0">{t('inst.batch')}:</label>
+        <div className="flex flex-wrap gap-2">
           {BATCHES.map((b) => (
             <button
               key={b.id}
               onClick={() => setBatchId(b.id)}
-              className={`rounded-xl px-4 py-2 text-sm font-bold transition ${
-                b.id === batchId ? 'bg-accent-600 text-white shadow-card' : 'border border-zinc-300 dark:border-white/15'
+              className={`rounded-xl px-4 py-2 text-sm font-bold transition-all duration-200 ${
+                b.id === batchId ? 'bg-gradient-to-br from-accent-500 to-violet-600 text-white shadow-glow' : 'btn-ghost'
               }`}
             >
               {b.name}
@@ -42,7 +42,7 @@ export default function InstitutePage() {
         </div>
       </div>
 
-      <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="mb-7 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {[
           { v: String(batch.students.length), l: t('inst.students') },
           { v: `${avgCompletion}%`, l: t('inst.completion') },
@@ -50,16 +50,16 @@ export default function InstitutePage() {
           { v: String(verifiedCount), l: t('inst.verified.count') },
         ].map((s) => (
           <Card key={s.l} className="text-center">
-            <p className="text-3xl font-extrabold text-accent-600 dark:text-accent-300">{s.v}</p>
-            <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{s.l}</p>
+            <p className="gradient-text text-3xl font-extrabold tracking-tight">{s.v}</p>
+            <p className="mt-1.5 text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">{s.l}</p>
           </Card>
         ))}
       </div>
 
-      <Card className="overflow-x-auto p-0 nice-scroll">
+      <Card className="overflow-x-auto !p-0 nice-scroll">
         <table className="w-full min-w-[560px] border-collapse text-sm">
           <thead>
-            <tr className="border-b border-zinc-200 text-left text-xs uppercase tracking-wide text-zinc-500 dark:border-white/10">
+            <tr className="border-b border-zinc-200/80 bg-gradient-to-r from-accent-500/10 to-transparent text-left text-xs uppercase tracking-wide text-zinc-500 dark:border-white/10">
               <th className="p-4">{t('inst.table.name')}</th>
               <th className="p-4">{t('inst.table.completion')}</th>
               <th className="p-4">{t('inst.table.score')}</th>
@@ -89,11 +89,11 @@ export default function InstitutePage() {
         </table>
       </Card>
 
-      <div className="mt-6">
+      <div className="mt-7">
         <Link
           href="/institute/batch"
           onClick={share}
-          className="inline-block rounded-2xl bg-accent-600 px-6 py-3 text-sm font-bold text-white shadow-card transition hover:bg-accent-700"
+          className="btn-primary inline-flex"
         >
           🔗 {t('inst.share')}
         </Link>

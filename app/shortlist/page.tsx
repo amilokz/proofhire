@@ -63,7 +63,7 @@ export default function ShortlistPage() {
     <div>
       <PageHead title={t('shortlist.title')} sub="" />
 
-      <div className="mb-6 flex gap-2">
+      <div className="mb-7 inline-flex gap-1 rounded-2xl border border-zinc-200/80 bg-zinc-100/70 p-1.5 dark:border-white/10 dark:bg-white/[0.05]">
         {(
           [
             ['short', `${t('shortlist.tab.short')} (${shortDevs.length})`],
@@ -73,8 +73,8 @@ export default function ShortlistPage() {
           <button
             key={v}
             onClick={() => setTab(v)}
-            className={`rounded-xl px-5 py-2.5 text-sm font-bold transition ${
-              tab === v ? 'bg-accent-600 text-white shadow-card' : 'border border-zinc-300 dark:border-white/15'
+            className={`rounded-xl px-5 py-2.5 text-sm font-bold transition-all duration-200 ${
+              tab === v ? 'bg-gradient-to-br from-accent-500 to-violet-600 text-white shadow-glow' : 'text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-100'
             }`}
           >
             {label}
@@ -87,31 +87,31 @@ export default function ShortlistPage() {
           {shortDevs.length === 0 ? (
             <Card className="text-center">
               <p className="text-zinc-500 dark:text-zinc-400">{t('shortlist.empty')}</p>
-              <Link href="/search" className="mt-4 inline-block rounded-xl bg-accent-600 px-6 py-2.5 text-sm font-bold text-white">
+              <Link href="/search" className="btn-primary mt-5 inline-flex">
                 {t('nav.search')} →
               </Link>
             </Card>
           ) : (
             <div className="grid gap-4 lg:grid-cols-2">
               {shortDevs.map((d) => (
-                <Card key={d.id}>
+                <Card lift key={d.id}>
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-extrabold">{d.name}</h3>
+                        <h3 className="font-extrabold tracking-tight">{d.name}</h3>
                         {isVerified(d) && <VerifiedBadge size="sm" />}
                       </div>
-                      <p className="text-sm text-accent-600 dark:text-accent-300">{d.title}</p>
-                      <p className="mt-1 text-xs text-zinc-500">
+                      <p className="gradient-text text-sm font-bold">{d.title}</p>
+                      <p className="mt-1.5 text-xs text-zinc-500 dark:text-zinc-400">
                         📍 {d.city} · {d.yearsExp} {ur ? 'saal' : 'yrs'} · {fmtPKR(d.expectedSalary)}/mo
                       </p>
                     </div>
                   </div>
-                  <div className="mt-3 flex gap-2">
-                    <button onClick={() => viewDev(d.id)} className="rounded-lg bg-accent-600 px-3 py-1.5 text-xs font-bold text-white">
+                  <div className="mt-4 flex gap-2">
+                    <button onClick={() => viewDev(d.id)} className="btn-primary btn-sm">
                       {t('common.view')} →
                     </button>
-                    <button onClick={() => removeShort(d.id)} className="rounded-lg border border-zinc-300 px-3 py-1.5 text-xs font-bold text-red-600 dark:border-white/15">
+                    <button onClick={() => removeShort(d.id)} className="btn-ghost btn-sm !text-red-600 hover:!border-red-400 dark:!text-red-400">
                       {t('shortlist.remove')}
                     </button>
                   </div>
@@ -130,24 +130,24 @@ export default function ShortlistPage() {
               <p className="text-zinc-500 dark:text-zinc-400">
                 {compareDevs.length === 0 ? t('shortlist.empty') : 'Select at least 2 developers to compare.'}
               </p>
-              <Link href="/search" className="mt-4 inline-block rounded-xl bg-accent-600 px-6 py-2.5 text-sm font-bold text-white">
+              <Link href="/search" className="btn-primary mt-5 inline-flex">
                 {t('nav.search')} →
               </Link>
             </Card>
           ) : (
-            <Card className="overflow-x-auto nice-scroll p-0">
+            <Card className="overflow-x-auto nice-scroll !p-0">
               <table className="w-full min-w-[560px] border-collapse text-sm">
                 <thead>
-                  <tr className="bg-accent-500/10">
+                  <tr className="bg-gradient-to-r from-accent-500/15 to-violet-500/10">
                     <th className="p-4 text-left text-xs uppercase tracking-wide text-zinc-500"></th>
                     {compareDevs.map((d) => (
                       <th key={d.id} className="p-4 text-left">
-                        <button onClick={() => viewDev(d.id)} className="font-extrabold text-accent-700 hover:underline dark:text-accent-300">
+                        <button onClick={() => viewDev(d.id)} className="font-extrabold text-accent-700 transition hover:text-accent-500 dark:text-accent-200">
                           {d.name}
                         </button>
                         <button
                           onClick={() => removeCompare(d.id)}
-                          className="ml-2 rounded-md border border-zinc-300 px-1.5 py-0.5 text-[10px] text-red-600 dark:border-white/15"
+                          className="btn-ghost btn-sm ml-2 !px-2 !py-0.5 !text-[10px] !text-red-600 hover:!border-red-400 dark:!text-red-400"
                           title={t('shortlist.remove')}
                         >
                           ✕
